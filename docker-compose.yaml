@@ -1,0 +1,45 @@
+name: traefik-reverse-proxy
+
+services:
+  socketproxy:
+    image: tecnativa/docker-socket-proxy:v0.5.0@sha256:1f5038b54f06c3e18422902cf00ba21803d1c97805aae032e5e6673d532d3459
+    environment:
+      #permet de filtrer les actions possibles sur le socket docker hote
+      - CONTAINERS=1
+      - INFO=0
+      - VERSION=1
+      - EVENTS=1
+      - IMAGES=0
+      - NETWORKS=0
+      - PING=1
+      # POST non défini => 0 => toute écriture renvoie 403
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks: [ proxynet ]
+    restart: unless-stopped
+
+  traefik:
+    depends_on: [socketproxy]
+    image: traefik:v3.7
+    ports:
+      - "80:80"
+      - "8080:8080"
+      - "443:443"
+    environment:
+      #faire passer traefik par le proxy défini plus haut
+      - DOCKER_HOST=tcp://socketproxy:2375
+    networks:
+      - web
+      - proxynet
+    volumes:
+      - ./traefik_dynamic_conf.yml:/etc/traefik/dynamic_conf.yml:ro
+      - ./traefik.yml:/etc/traefik/traefik.yml:ro
+      - ./certs:/etc/certs:ro
+
+networks:
+  web:
+    name: web
+    external: true
+  proxynet:
+    name: proxynet
+    external: true

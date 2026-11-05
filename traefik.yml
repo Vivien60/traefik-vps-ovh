@@ -1,0 +1,14 @@
+api:
+  insecure: true
+entryPoints:
+  web:
+    address: ":80"
+  websecure:
+    address: ':443'
+    http:
+      tls: { }
+providers:
+  docker:
+    defaultRule: "Host(`{{ index .Labels \"com.docker.compose.service\" }}.vivien-goncalves.fr`)"
+  file:
+    filename: /etc/traefik/dynamic_conf.yml
