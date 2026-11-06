@@ -34,7 +34,7 @@ services:
     volumes:
       - ./traefik_dynamic_conf.yml:/etc/traefik/dynamic_conf.yml:ro
       - ./traefik.yml:/etc/traefik/traefik.yml:ro
-      - ./certs:/etc/certs:ro
+      - ${CERTS_DIR:? CERTS_DIR manquant}:/etc/certs:ro
 
 networks:
   web:
