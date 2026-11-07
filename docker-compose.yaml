@@ -23,7 +23,7 @@ services:
     image: traefik:v3.7
     ports:
       - "80:80"
-      - "8080:8080"
+      - "127.0.0.1:8080:8080"
       - "443:443"
     environment:
       #faire passer traefik par le proxy défini plus haut
@@ -32,9 +32,8 @@ services:
       - web
       - proxynet
     volumes:
-      - ./traefik_dynamic_conf.yml:/etc/traefik/dynamic_conf.yml:ro
-      - ./traefik.yml:/etc/traefik/traefik.yml:ro
-      - ${CERTS_DIR:? CERTS_DIR manquant}:/etc/certs:ro
+      - ./traefik_dynamic_conf.${ENV:? ENV is missing}.yml:/etc/traefik/dynamic_conf.yml:ro
+      - ./traefik.${ENV:? ENV is missing}.yml:/etc/traefik/traefik.yml:ro
 
 networks:
   web:
@@ -42,4 +41,4 @@ networks:
     external: true
   proxynet:
     name: proxynet
-    external: true
+    internal: true

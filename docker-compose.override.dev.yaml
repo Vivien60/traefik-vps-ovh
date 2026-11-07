@@ -1,0 +1,6 @@
+name: traefik-reverse-proxy-dev
+
+services:
+  traefik:
+    volumes:
+      - /var/www/html/eval/curriculum/traefik/certs:/etc/certs:ro

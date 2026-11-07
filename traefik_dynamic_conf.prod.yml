@@ -1,0 +1,7 @@
+tls:
+  certificates:
+    - certFile: "/etc/certs/live/cv.vivien-goncalves.fr/fullchain.pem"
+      keyFile: "/etc/certs/live/cv.vivien-goncalves.fr/privkey.pem"
+  options:
+    default:
+      sniStrict: true
