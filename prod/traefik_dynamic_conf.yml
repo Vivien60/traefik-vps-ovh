@@ -1,4 +1,4 @@
-des flatls:
+tls:
   certificates:
     - certFile: "/etc/certs/live/cv.vivien-goncalves.fr/fullchain.pem"
       keyFile: "/etc/certs/live/cv.vivien-goncalves.fr/privkey.pem"
