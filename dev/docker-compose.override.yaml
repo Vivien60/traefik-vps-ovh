@@ -3,5 +3,7 @@ name: traefik-reverse-proxy-dev
 services:
   traefik:
     container_name: traefik
+    cap_add:
+      - DAC_READ_SEARCH
     volumes:
       - /var/www/html/eval/curriculum/traefik/certs:/etc/certs:ro
