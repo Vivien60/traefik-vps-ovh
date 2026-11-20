@@ -2,6 +2,7 @@ name: traefik-reverse-proxy-prod
 
 services:
   traefik:
+    container_name: traefik
     volumes:
       - /etc/letsencrypt/live/cv.vivien-goncalves.fr:/etc/certs/live/cv.vivien-goncalves.fr:ro
       - /etc/letsencrypt/archive/cv.vivien-goncalves.fr:/etc/certs/archive/cv.vivien-goncalves.fr:ro
