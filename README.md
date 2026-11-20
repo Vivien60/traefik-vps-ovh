@@ -11,3 +11,6 @@ docker run --rm -p 80:80 \
   certbot/certbot renew "$@"
 EOF
 ```
+
+### téléchargement du projet depuis github sans le dépot git
+curl -fsSL https://github.com/<user>/<repo>/archive/refs/heads/main.tar.gz | tar -xz --strip-components=1 -C /chemin/cible
